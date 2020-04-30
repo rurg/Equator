@@ -3,14 +3,25 @@ from typing import Dict
 documents = [
     {"type": "passport", "number": "2207 876234", "name": "Василий Гупкин"},
     {"type": "invoice", "number": "11-2", "name": "Геннадий Покемонов"},
-    {"type": "insurance", "number": "10006", "name": "Аристарх Павлов"}
+    {"type": "insurance", "number": "10006", "name": "Аристарх Павлов"},
+    {"type": "Electronic COVID-19 Key", "number": "666"}
 ]
 directories = {
     '1': ['2207 876234', '11-2'],
     '2': ['10006'],
-    '3': [],
+    '3': ['666'],
     '4': []
 }
+
+#Вывод именов все владельцев документов и проверка наличия поля "name"
+def exception():
+    docs = documents
+    try:
+        for i in docs:
+            print(f'"{i["name"]}"')
+    except KeyError:
+        print('Поле имени отсутствует')
+
 
 # Вывод списка в виде списка определенного формата :)
 def listed():
@@ -110,15 +121,17 @@ def command_menu():  # обработчик команд
                 print('такого документа нет')
             else:
                 i_d_like_to_move_it(user_input_number)
-
         if user_input == 'l':  # команда на вывод списка документов
             listed()
         if user_input == 'a':  # команда на добавление документов
             add_doc()
-
+        if user_input == 'x':  # команда на добавление документов
+            exception()
         elif user_input == 'q':
             print('bye')
             break
 
-
-command_menu()
+try:
+    command_menu()
+except KeyError:
+    print('Имечко для последнего документа отсутствуююет')
